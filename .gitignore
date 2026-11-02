@@ -1,0 +1,10 @@
+build/
+cmake-build-*/
+.cache/
+compile_commands.json
+
+# real config holds the webhook token
+config.json
+config.json.tmp
+state.json
+state.json.tmp

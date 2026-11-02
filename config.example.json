@@ -1,0 +1,68 @@
+{
+  "username": "RSS",
+  "avatar_url": "",
+  "interval_seconds": 300,
+  "max_posts_per_poll": 5,
+  "first_run_posts": 1,
+  "post_delay_ms": 1000,
+  "color": "#5865F2",
+  "state_file": "state.json",
+  "dashboard": {
+    "enabled": true,
+    "bind": "127.0.0.1",
+    "port": 8080,
+    "password": ""
+  },
+  "webhooks": [
+    {
+      "id": "gaming-news",
+      "name": "Gaming server · #news",
+      "url": "https://discord.com/api/webhooks/WEBHOOK_ID/WEBHOOK_TOKEN",
+      "username": "News Bot",
+      "avatar_url": "https://example.com/news-bot.png",
+      "thread_id": "",
+      "content": ""
+    },
+    {
+      "id": "dev-releases",
+      "name": "Dev server · #releases",
+      "url": "env:DEV_RELEASES_WEBHOOK",
+      "username": "Release Feed",
+      "avatar_url": "",
+      "thread_id": "",
+      "content": "<@&ROLE_ID> new release"
+    }
+  ],
+  "feeds": [
+    {
+      "id": "arch",
+      "name": "Arch Linux News",
+      "url": "https://archlinux.org/feeds/news/",
+      "webhooks": [
+        "gaming-news",
+        "dev-releases"
+      ],
+      "color": "#1793D1"
+    },
+    {
+      "id": "curl",
+      "name": "curl releases",
+      "url": "https://github.com/curl/curl/releases.atom",
+      "webhooks": [
+        "dev-releases"
+      ],
+      "color": "#FF6600",
+      "show_image": false
+    },
+    {
+      "id": "hn",
+      "name": "Hacker News",
+      "url": "https://hnrss.org/frontpage",
+      "webhooks": [
+        "gaming-news"
+      ],
+      "summary_length": 0,
+      "enabled": false
+    }
+  ]
+}

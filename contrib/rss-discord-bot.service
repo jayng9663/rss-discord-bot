@@ -1,0 +1,20 @@
+# systemd user unit. Install:
+#   install -Dm755 build/rss-discord-bot ~/.local/bin/rss-discord-bot
+#   install -Dm600 config.json ~/.config/rss-discord-bot/config.json
+#   install -Dm644 contrib/rss-discord-bot.service ~/.config/systemd/user/rss-discord-bot.service
+#   systemctl --user enable --now rss-discord-bot
+#   loginctl enable-linger "$USER"   # keep running after logout
+# Dashboard: http://localhost:8080/ (see "dashboard" in config.json)
+[Unit]
+Description=RSS/Atom to Discord webhook bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/rss-discord-bot --config %h/.config/rss-discord-bot/config.json
+Restart=on-failure
+RestartSec=30
+
+[Install]
+WantedBy=default.target
