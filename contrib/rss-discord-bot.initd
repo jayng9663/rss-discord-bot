@@ -1,0 +1,26 @@
+#!/sbin/openrc-run
+# OpenRC script (Alpine). Install as a regular user service:
+#   install -Dm755 build/rss-discord-bot ~/.local/bin/rss-discord-bot
+#   install -Dm644 contrib/rss-discord-bot.initd /home/$USER/local/etc/init.d/rss-discord-bot
+#   rc-service rss-discord-bot start
+#   rc-update add rss-discord-bot default    # start at boot (user-level, if supported)
+# For a system-wide install, place the script in /etc/init.d instead and set
+# the user variables below, or wrap this with su.
+
+description="RSS/Atom to Discord webhook bot"
+command="/home/${SUDO_USER:-$USER}/.local/bin/rss-discord-bot"
+command_args="--config /home/${SUDO_USER:-$USER}/.config/rss-discord-bot/config.json"
+command_background="yes"
+pidfile="/run/${SVCNAME}.pid"
+output_log="/home/${SUDO_USER:-$USER}/.local/state/rss-discord-bot/log"
+error_log="/home/${SUDO_USER:-$USER}/.local/state/rss-discord-bot/log"
+
+depend() {
+    need net
+    after net
+}
+
+start_pre() {
+    checkpath --directory --owner ${SUDO_USER:-$USER} \
+        "/home/${SUDO_USER:-$USER}/.local/state/rss-discord-bot"
+}
